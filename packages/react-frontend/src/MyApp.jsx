@@ -21,8 +21,8 @@ function MyApp() {
     });
   }
 
-  function deleteUser(id) {
-    return fetch(`http://localhost:8000/users/${id}`, {
+  function deleteUser(userId) {
+    return fetch(`http://localhost:8000/users/${userId}`, {
       method: "DELETE",
     });
   }
@@ -36,12 +36,14 @@ function MyApp() {
       });
   }, []);
 
-  function removeOneCharacter(id) {
-    deleteUser(id)
+  function removeOneCharacter(userId) {
+    deleteUser(userId)
       .then((res) => {
         if (res.status === 204) {
           setCharacters((prevCharacters) =>
-            prevCharacters.filter((character) => character.id !== id),
+            prevCharacters.filter(
+              (character) => character._id !== userId,
+            ),
           );
         }
       })
